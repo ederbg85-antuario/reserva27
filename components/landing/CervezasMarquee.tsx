@@ -4,16 +4,20 @@ import { CERVEZAS } from "@/lib/catalog";
 /**
  * Carrusel infinito de cervezas. Renderiza la lista dos veces y anima
  * translateX(-50%) en loop para dar la ilusión de marquesina continua.
- * Sin JS — pura animación CSS.
+ *
+ * Estética: las fotos vienen con fondo claro de madera. Usamos
+ * `mix-blend-multiply` para fundir ese fondo con el crema de la sección,
+ * y aplicamos `drop-shadow` directamente sobre el contorno de la
+ * cerveza (no sobre el rectángulo) para una sensación de producto premium.
  */
 export default function CervezasMarquee() {
   const lista = CERVEZAS;
   return (
     <section
-      className="relative bg-crema py-12 sm:py-16 border-y border-charcoal/5 overflow-hidden"
+      className="relative bg-crema py-14 sm:py-20 border-y border-charcoal/5 overflow-hidden"
       aria-label="Cervezas que servimos"
     >
-      <div className="container-page mb-6 sm:mb-8 flex flex-wrap items-end justify-between gap-3">
+      <div className="container-page mb-8 sm:mb-10 flex flex-wrap items-end justify-between gap-3">
         <div>
           <p className="eyebrow">Cervezas</p>
           <h2 className="mt-2">Las que sirven en tu evento.</h2>
@@ -25,29 +29,36 @@ export default function CervezasMarquee() {
 
       <div className="relative">
         {/* Fades laterales para que el corte se sienta intencional */}
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-12 sm:w-24 bg-gradient-to-r from-crema to-transparent z-10" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-12 sm:w-24 bg-gradient-to-l from-crema to-transparent z-10" />
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-12 sm:w-32 bg-gradient-to-r from-crema to-transparent z-10" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-12 sm:w-32 bg-gradient-to-l from-crema to-transparent z-10" />
 
-        <div className="flex w-max animate-marquee gap-4 sm:gap-6 will-change-transform">
+        <div className="flex w-max animate-marquee gap-6 sm:gap-10 will-change-transform py-2">
           {[...lista, ...lista].map((c, i) => (
             <div
               key={`${c.id}-${i}`}
-              className="shrink-0 w-[110px] sm:w-[140px] md:w-[160px]"
+              className="shrink-0 w-[120px] sm:w-[160px] md:w-[180px] flex flex-col items-center"
               aria-hidden={i >= lista.length}
             >
-              <div className="relative aspect-square rounded-2xl bg-white border border-charcoal/5 shadow-sm overflow-hidden">
+              <div className="relative aspect-square w-full rounded-lg overflow-hidden">
                 <Image
                   src={c.imagen}
                   alt={`${c.marca} ${c.variante ?? ""}`}
                   fill
-                  sizes="160px"
-                  className="object-contain p-3"
-                  quality={75}
+                  sizes="180px"
+                  quality={80}
+                  className="
+                    object-contain
+                    mix-blend-multiply
+                    [filter:drop-shadow(0_18px_22px_rgba(31,31,31,0.22))_drop-shadow(0_4px_8px_rgba(31,31,31,0.12))]
+                    transition-transform duration-500 hover:scale-[1.04]
+                  "
                 />
               </div>
-              <p className="mt-2 text-[11px] sm:text-xs text-charcoal/70 text-center uppercase tracking-wide">
+              <p className="mt-3 text-[11.5px] sm:text-xs font-medium tracking-wide text-charcoal/70 text-center">
                 {c.marca}
-                {c.variante ? ` · ${c.variante}` : ""}
+                {c.variante ? (
+                  <span className="text-charcoal/40"> · {c.variante}</span>
+                ) : null}
               </p>
             </div>
           ))}

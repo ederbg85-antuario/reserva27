@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { QuoteProvider, useQuote } from "@/components/cotizador/QuoteContext";
 import Stepper, { STEP_KEYS, type StepKey } from "@/components/cotizador/Stepper";
@@ -23,11 +23,35 @@ export default function CotizadorPage() {
   );
 }
 
+// useLayoutEffect en cliente, useEffect en SSR — evita warning de hydration
+const useIsoLayoutEffect =
+  typeof window !== "undefined" ? useLayoutEffect : useEffect;
+
 function CotizadorShell() {
   const [step, setStep] = useState<StepKey>("micheladas");
   const { state } = useQuote();
 
-  // Scroll al top cuando cambia de paso (mobile UX)
+  // Medimos la altura del bloque superior (header + stepper + pricebar)
+  // y la replicamos como padding-top en <main>. Así, aunque el bloque sea
+  // position:fixed (siempre visible), el contenido nunca queda oculto detrás.
+  const topRef = useRef<HTMLDivElement>(null);
+  const [topHeight, setTopHeight] = useState(160);
+
+  useIsoLayoutEffect(() => {
+    if (!topRef.current) return;
+    const el = topRef.current;
+    const update = () => setTopHeight(el.getBoundingClientRect().height);
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    window.addEventListener("resize", update);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", update);
+    };
+  }, []);
+
+  // Scroll al inicio del contenido cada vez que cambia de paso
   useEffect(() => {
     if (typeof window !== "undefined") {
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -38,7 +62,6 @@ function CotizadorShell() {
   const goNext = () => setStep(STEP_KEYS[Math.min(STEP_KEYS.length - 1, idx + 1)]);
   const goPrev = () => setStep(STEP_KEYS[Math.max(0, idx - 1)]);
 
-  // Reglas de validación por paso
   const canAdvance = useMemo(() => {
     switch (step) {
       case "micheladas":
@@ -66,24 +89,26 @@ function CotizadorShell() {
   }, [step, state]);
 
   return (
-    <div className="min-h-[100svh] bg-crema flex flex-col">
-      {/* Header */}
-      <header className="bg-charcoal text-crema sticky top-0 z-40">
-        <div className="container-page h-[68px] sm:h-20 flex items-center justify-between gap-4">
-          <Link href="/" className="flex items-center" aria-label="Volver a inicio">
-            <Logo variant="inverso" className="h-10 sm:h-11 w-auto" />
-          </Link>
-          <Link
-            href="/"
-            className="inline-flex items-center gap-1 text-xs sm:text-sm font-medium text-crema/80 hover:text-crema"
-          >
-            <ChevronLeft size={14} /> Salir
-          </Link>
-        </div>
-      </header>
-
-      {/* Stepper + PriceBar pegados arriba */}
-      <div className="sticky top-[68px] sm:top-20 z-30">
+    <div className="min-h-[100svh] bg-crema">
+      {/* Bloque superior FIJO — header + stepper + barra de precio.
+          Siempre visible al usuario sin importar el scroll. */}
+      <div
+        ref={topRef}
+        className="fixed inset-x-0 top-0 z-40 shadow-[0_8px_20px_-12px_rgba(0,0,0,0.18)]"
+      >
+        <header className="bg-charcoal text-crema">
+          <div className="container-page h-[64px] sm:h-[72px] flex items-center justify-between gap-4">
+            <Link href="/" className="flex items-center" aria-label="Volver a inicio">
+              <Logo variant="inverso" className="h-9 sm:h-10 w-auto" />
+            </Link>
+            <Link
+              href="/"
+              className="inline-flex items-center gap-1 text-xs sm:text-sm font-medium text-crema/80 hover:text-crema"
+            >
+              <ChevronLeft size={14} /> Salir
+            </Link>
+          </div>
+        </header>
         <Stepper current={step} onJump={(k) => setStep(k)} />
         <PriceBar
           onPrimary={
@@ -105,8 +130,8 @@ function CotizadorShell() {
         />
       </div>
 
-      {/* Contenido */}
-      <main className="flex-1 pb-24">
+      {/* Contenido — padding-top compensa la altura real del bloque fijo */}
+      <main className="pb-16" style={{ paddingTop: topHeight }}>
         {step === "micheladas" && <StepMicheladas />}
         {step === "sabores" && <StepSabores />}
         {step === "chile" && <StepChile />}

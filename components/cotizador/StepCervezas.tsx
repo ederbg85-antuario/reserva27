@@ -40,7 +40,7 @@ export default function StepCervezas() {
           dudas, te ayudamos por WhatsApp.
         </p>
 
-        <div className="mt-6 sticky top-[112px] sm:top-[124px] z-20 -mx-5 sm:mx-0 px-5 sm:px-0">
+        <div className="mt-6">
           <div className="card flex items-center justify-between gap-3 px-4 py-3 sm:px-5">
             <div>
               <p className="kicker text-charcoal/60">En el carrito</p>

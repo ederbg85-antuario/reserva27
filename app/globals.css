@@ -22,7 +22,12 @@ html, body {
   font-feature-settings: "kern", "liga", "calt";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* `clip` evita scroll horizontal pero — a diferencia de `hidden` —
+     no crea un nuevo contexto de scroll, así que `position: sticky`
+     sigue funcionando en descendientes. Fallback a `hidden` en
+     navegadores que no lo soporten. */
   overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* Tipografía fluida. La fuente display (Anton) se reserva para
