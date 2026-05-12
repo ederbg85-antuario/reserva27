@@ -1,0 +1,141 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #F5EFE6;
+  --ink: #1F1F1F;
+  --champagne: #D7B28B;
+  --brasa: #D9602A;
+}
+
+html {
+  /* iOS: deja que Safari respete safe areas y evita el zoom raro en inputs */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+html, body {
+  background: var(--bg);
+  color: var(--ink);
+  font-feature-settings: "kern", "liga", "calt";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Tipografía fluida — clave para que el display se sienta bien en mobile y desktop */
+@layer base {
+  body {
+    @apply font-sans text-charcoal;
+  }
+  h1, h2, h3, h4 {
+    @apply font-display uppercase tracking-tightish;
+    line-height: 0.92;
+  }
+  h1 {
+    font-size: clamp(2.5rem, 10vw, 6rem);
+  }
+  h2 {
+    font-size: clamp(2rem, 6.5vw, 4rem);
+  }
+  h3 {
+    font-size: clamp(1.4rem, 3.5vw, 2rem);
+  }
+  /* Evita el zoom de iOS al focusear inputs */
+  input, select, textarea {
+    font-size: 16px;
+  }
+  ::selection {
+    background: #D7B28B;
+    color: #1F1F1F;
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-7xl px-5 sm:px-8;
+  }
+  .kicker {
+    @apply font-sans font-bold uppercase text-[11px] sm:text-xs tracking-kicker text-champagne-500;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 font-sans font-semibold uppercase tracking-kicker text-xs sm:text-sm transition-all duration-200 select-none;
+    min-height: 48px;
+    padding: 0 1.25rem;
+    border-radius: 9999px;
+  }
+  .btn-primary {
+    @apply btn bg-brasa text-crema shadow-brasa hover:brightness-110 active:scale-[0.98];
+  }
+  .btn-secondary {
+    @apply btn bg-charcoal text-crema hover:bg-charcoal-700 active:scale-[0.98];
+  }
+  .btn-ghost {
+    @apply btn bg-transparent text-charcoal border border-charcoal/15 hover:border-charcoal/40 hover:bg-charcoal/[0.04];
+  }
+  .btn-on-dark {
+    @apply btn bg-crema text-charcoal hover:bg-champagne-100 active:scale-[0.98];
+  }
+  .card {
+    @apply rounded-2xl bg-white shadow-card border border-charcoal/5;
+  }
+  .bracket {
+    /* Marco bracket — referencia al "marco abierto en C" del logo */
+    position: relative;
+  }
+  .bracket::before,
+  .bracket::after {
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border: 2px solid currentColor;
+    opacity: 0.8;
+  }
+  .bracket::before {
+    top: 0;
+    left: 0;
+    border-right: none;
+    border-bottom: none;
+  }
+  .bracket::after {
+    bottom: 0;
+    right: 0;
+    border-left: none;
+    border-top: none;
+  }
+  /* Hide-scrollbar utility for horizontal mobile rails */
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { scrollbar-width: none; }
+
+  .input {
+    @apply h-12 w-full rounded-xl border border-charcoal/15 bg-white px-4 text-base font-medium text-charcoal placeholder:text-charcoal/40 focus:border-brasa focus:outline-none transition-colors;
+  }
+  textarea.input {
+    @apply py-3;
+  }
+  /* Pattern fondo crema */
+  .pattern-crema {
+    background-color: #F5EFE6;
+    background-image:
+      radial-gradient(rgba(31,31,31,0.06) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+}
+
+/* Safe-area helpers para iPhone */
+.safe-bottom {
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
+}
+.safe-top {
+  padding-top: max(1rem, env(safe-area-inset-top));
+}
+
+/* Foco accesible consistente */
+:focus-visible {
+  outline: 2px solid #D9602A;
+  outline-offset: 3px;
+  border-radius: 4px;
+}

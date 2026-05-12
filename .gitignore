@@ -1,0 +1,46 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Testing
+coverage/
+
+# Next.js
+.next/
+out/
+build/
+dist/
+
+# Production
+*.tsbuildinfo
+next-env.d.ts
+
+# Misc
+.DS_Store
+*.pem
+.vscode/
+.idea/
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local env files
+.env*.local
+.env
+
+# Vercel
+.vercel
+
+# Source asset folders (not for the web app — kept locally only)
+/CERVEZAS FOTOS/
+/Material Principal/
+Reserva_27_BrandBook.pdf
+build_brandbook.py
+Diseño sin título*.png
+
+# Raw IG photos at repo root (we copy only the picks into public/)
+/4*.jpg
+/5*.jpg
