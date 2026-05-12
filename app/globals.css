@@ -61,7 +61,9 @@ html, body {
     letter-spacing: -0.005em;
   }
   .display-xl {
-    font-size: clamp(3rem, 11vw, 7rem);
+    /* Antes 11vw / 7rem máx — demasiado grande en pantallas anchas.
+       Ahora topa en 5rem (80px) que mantiene presencia sin verse tosco. */
+    font-size: clamp(2.5rem, 7vw, 5rem);
   }
   /* Evita el zoom de iOS al focusear inputs */
   input, select, textarea {
