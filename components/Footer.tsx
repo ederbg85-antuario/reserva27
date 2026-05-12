@@ -38,7 +38,8 @@ export default function Footer() {
           <p className="kicker text-champagne">Navegación</p>
           <ul className="mt-4 space-y-3 text-sm">
             <li><Link href="/#nosotros" className="hover:text-champagne">Nosotros</Link></li>
-            <li><Link href="/#servicio" className="hover:text-champagne">Servicio</Link></li>
+            <li><Link href="/#cotiza" className="hover:text-champagne">Cotiza en vivo</Link></li>
+            <li><Link href="/#equipo" className="hover:text-champagne">Lo que llevamos</Link></li>
             <li><Link href="/#galeria" className="hover:text-champagne">Galería</Link></li>
             <li><Link href="/cotizador" className="hover:text-champagne">Cotiza tu evento</Link></li>
           </ul>

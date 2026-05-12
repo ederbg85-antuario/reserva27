@@ -34,10 +34,9 @@ export default function FAQ() {
   return (
     <section id="faq" className="bg-crema py-20 sm:py-28">
       <div className="container-page max-w-3xl">
-        <p className="kicker">Preguntas frecuentes</p>
-        <h2 className="mt-3 text-charcoal">
-          Las dudas que
-          <span className="text-brasa"> siempre nos hacen.</span>
+        <p className="eyebrow">Preguntas frecuentes</p>
+        <h2 className="mt-3">
+          Las dudas que <span className="text-charcoal/55">siempre nos hacen.</span>
         </h2>
         <div className="mt-10 sm:mt-12 divide-y divide-charcoal/10">
           {QA.map((item, i) => (
@@ -58,7 +57,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
         aria-expanded={open}
         className="flex w-full items-center justify-between gap-6 text-left py-2"
       >
-        <span className="font-display text-xl sm:text-2xl uppercase text-charcoal leading-snug">
+        <span className="text-base sm:text-lg font-medium text-charcoal leading-snug pr-2">
           {q}
         </span>
         <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-charcoal text-crema">

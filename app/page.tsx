@@ -1,9 +1,10 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Hero from "@/components/landing/Hero";
-import Manifiesto from "@/components/landing/Manifiesto";
-import Servicio from "@/components/landing/Servicio";
-import Audiencia from "@/components/landing/Audiencia";
+import CervezasMarquee from "@/components/landing/CervezasMarquee";
+import Nosotros from "@/components/landing/Nosotros";
+import CotizaTiempoReal from "@/components/landing/CotizaTiempoReal";
+import Equipo from "@/components/landing/Equipo";
 import Galeria from "@/components/landing/Galeria";
 import FAQ from "@/components/landing/FAQ";
 import CTA from "@/components/landing/CTA";
@@ -13,9 +14,10 @@ export default function Home() {
     <main>
       <Navbar tone="dark" />
       <Hero />
-      <Manifiesto />
-      <Servicio />
-      <Audiencia />
+      <CervezasMarquee />
+      <Nosotros />
+      <CotizaTiempoReal />
+      <Equipo />
       <Galeria />
       <FAQ />
       <CTA />

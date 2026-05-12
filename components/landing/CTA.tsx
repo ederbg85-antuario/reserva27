@@ -19,15 +19,13 @@ export default function CTA() {
 
       <div className="relative container-page py-20 sm:py-28">
         <div className="max-w-3xl">
-          <p className="kicker text-champagne">Reserva tu fecha</p>
-          <h2 className="mt-3">
-            Y nosotros
-            <br />
-            <span className="text-champagne">ponemos la barra.</span>
+          <p className="eyebrow text-champagne">Reserva tu fecha</p>
+          <h2 className="mt-3 text-crema font-display uppercase display-xl">
+            Y nosotros <span className="text-champagne">ponemos la barra.</span>
           </h2>
-          <p className="mt-6 text-crema/80 text-base sm:text-lg leading-relaxed max-w-xl">
-            Arma tu paquete en menos de dos minutos. Eliges micheladas, sabores y
-            cervezas; te damos el desglose y lo descargas en PDF.
+          <p className="mt-7 text-crema/80 text-base sm:text-lg leading-relaxed max-w-xl">
+            Arma tu paquete, descarga la cotización en PDF y apartamos tu fecha
+            por WhatsApp. Sin llamadas, sin formularios eternos.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4">
             <Link href="/cotizador" className="btn-primary group w-full sm:w-auto">

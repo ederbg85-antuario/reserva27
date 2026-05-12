@@ -27,12 +27,12 @@ export default function Stepper({
 
   return (
     <div className="bg-crema/95 border-b border-charcoal/10 backdrop-blur-md">
-      <div className="container-page py-3 sm:py-4">
-        <div className="flex items-center justify-between gap-3 mb-2 sm:mb-3">
-          <p className="kicker text-charcoal/60">
+      <div className="container-page py-3 sm:py-3.5">
+        <div className="flex items-center justify-between gap-3 mb-2">
+          <p className="text-[10.5px] uppercase tracking-kicker font-semibold text-charcoal/55">
             Paso {idx + 1} de {STEPS.length}
           </p>
-          <p className="font-display uppercase text-charcoal text-lg sm:text-xl tracking-tight">
+          <p className="text-charcoal text-sm sm:text-base font-semibold tracking-tight">
             {STEPS[idx].label}
           </p>
         </div>

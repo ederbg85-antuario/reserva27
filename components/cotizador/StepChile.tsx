@@ -33,7 +33,7 @@ export default function StepChile() {
               >
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <h3 className="font-display text-xl sm:text-2xl text-charcoal uppercase">
+                    <h3 className="text-lg sm:text-xl font-semibold tracking-tight text-charcoal">
                       {c.nombre}
                     </h3>
                     <p className="mt-1 text-sm sm:text-base text-charcoal/65">
@@ -84,7 +84,7 @@ export default function StepChile() {
               />
             </button>
             <div>
-              <p className="font-display text-xl text-charcoal uppercase">
+              <p className="text-lg font-semibold tracking-tight text-charcoal">
                 Con Clamato
               </p>
               <p className="text-sm sm:text-base text-charcoal/65 mt-1">

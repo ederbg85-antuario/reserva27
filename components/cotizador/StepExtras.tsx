@@ -37,7 +37,7 @@ export default function StepExtras() {
                 ].join(" ")}
               >
                 <div className="flex-1 min-w-0">
-                  <h3 className="font-display uppercase text-lg sm:text-xl text-charcoal">
+                  <h3 className="text-base sm:text-lg font-semibold tracking-tight text-charcoal">
                     {e.nombre}
                   </h3>
                   <p className="text-sm text-charcoal/65 mt-0.5">{e.detalle}</p>

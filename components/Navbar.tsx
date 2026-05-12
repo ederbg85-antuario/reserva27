@@ -7,8 +7,8 @@ import { Menu, X } from "lucide-react";
 
 const NAV = [
   { href: "/#nosotros", label: "Nosotros" },
-  { href: "/#servicio", label: "Servicio" },
-  { href: "/#audiencia", label: "Eventos" },
+  { href: "/#cotiza", label: "Cotiza en vivo" },
+  { href: "/#equipo", label: "Lo que llevamos" },
   { href: "/#galeria", label: "Galería" },
   { href: "/#faq", label: "FAQ" },
 ];
@@ -44,11 +44,11 @@ export default function Navbar({ tone = "light" }: { tone?: "light" | "dark" }) 
           : "bg-transparent",
       ].join(" ")}
     >
-      <div className="container-page flex h-16 sm:h-20 items-center justify-between">
+      <div className="container-page flex h-[68px] sm:h-20 items-center justify-between">
         <Link href="/" className="flex items-center" aria-label="Reserva 27 — inicio">
           <Logo
             variant={scrolled || isLight ? "principal" : "inverso"}
-            className="h-7 sm:h-9 w-auto"
+            className="h-10 sm:h-11 w-auto"
           />
         </Link>
 
@@ -58,9 +58,9 @@ export default function Navbar({ tone = "light" }: { tone?: "light" | "dark" }) 
               key={item.href}
               href={item.href}
               className={[
-                "text-sm font-semibold uppercase tracking-kicker transition-colors",
+                "text-[13px] font-medium tracking-wide transition-colors",
                 scrolled || isLight
-                  ? "text-charcoal/80 hover:text-charcoal"
+                  ? "text-charcoal/75 hover:text-charcoal"
                   : "text-crema/85 hover:text-crema",
               ].join(" ")}
             >
@@ -90,7 +90,7 @@ export default function Navbar({ tone = "light" }: { tone?: "light" | "dark" }) 
       {/* Mobile drawer */}
       <div
         className={[
-          "md:hidden fixed inset-x-0 top-16 sm:top-20 bottom-0 bg-charcoal text-crema",
+          "md:hidden fixed inset-x-0 top-[68px] sm:top-20 bottom-0 bg-charcoal text-crema",
           "transition-all duration-300",
           open ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-2 pointer-events-none",
         ].join(" ")}
@@ -101,7 +101,7 @@ export default function Navbar({ tone = "light" }: { tone?: "light" | "dark" }) 
               key={item.href}
               href={item.href}
               onClick={() => setOpen(false)}
-              className="font-display text-3xl uppercase py-3 border-b border-crema/10"
+              className="text-2xl font-semibold tracking-tight py-3 border-b border-crema/10"
               style={{ animation: `fadeUp 0.35s ${i * 40}ms both` }}
             >
               {item.label}

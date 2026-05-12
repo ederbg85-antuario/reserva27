@@ -81,7 +81,7 @@ export default function StepSabores() {
               >
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <h3 className="font-display text-xl text-charcoal uppercase leading-snug">
+                    <h3 className="text-lg font-semibold tracking-tight text-charcoal leading-snug">
                       {s.nombre}
                     </h3>
                     <p className="mt-1 text-sm text-charcoal/65 leading-snug">{s.descripcion}</p>

@@ -35,16 +35,10 @@ function CotizadorShell() {
   }, [step]);
 
   const idx = STEP_KEYS.indexOf(step);
-  const goNext = () => {
-    const n = STEP_KEYS[Math.min(STEP_KEYS.length - 1, idx + 1)];
-    setStep(n);
-  };
-  const goPrev = () => {
-    const p = STEP_KEYS[Math.max(0, idx - 1)];
-    setStep(p);
-  };
+  const goNext = () => setStep(STEP_KEYS[Math.min(STEP_KEYS.length - 1, idx + 1)]);
+  const goPrev = () => setStep(STEP_KEYS[Math.max(0, idx - 1)]);
 
-  // Reglas de validación por paso para habilitar el botón "Siguiente"
+  // Reglas de validación por paso
   const canAdvance = useMemo(() => {
     switch (step) {
       case "micheladas":
@@ -56,7 +50,6 @@ function CotizadorShell() {
       case "chile":
         return !!state.chileId;
       case "cervezas":
-        return true; // las cervezas son opcionales
       case "extras":
         return true;
       case "datos":
@@ -74,28 +67,46 @@ function CotizadorShell() {
 
   return (
     <div className="min-h-[100svh] bg-crema flex flex-col">
-      {/* Header simple del cotizador */}
-      <header className="bg-charcoal text-crema sticky top-0 z-30">
-        <div className="container-page h-16 sm:h-20 flex items-center justify-between gap-4">
+      {/* Header */}
+      <header className="bg-charcoal text-crema sticky top-0 z-40">
+        <div className="container-page h-[68px] sm:h-20 flex items-center justify-between gap-4">
           <Link href="/" className="flex items-center" aria-label="Volver a inicio">
-            <Logo variant="inverso" className="h-7 sm:h-8 w-auto" />
+            <Logo variant="inverso" className="h-10 sm:h-11 w-auto" />
           </Link>
           <Link
             href="/"
-            className="inline-flex items-center gap-1 text-xs sm:text-sm font-semibold uppercase tracking-kicker text-crema/80 hover:text-crema"
+            className="inline-flex items-center gap-1 text-xs sm:text-sm font-medium text-crema/80 hover:text-crema"
           >
             <ChevronLeft size={14} /> Salir
           </Link>
         </div>
       </header>
 
-      {/* Stepper */}
-      <div className="sticky top-16 sm:top-20 z-20">
+      {/* Stepper + PriceBar pegados arriba */}
+      <div className="sticky top-[68px] sm:top-20 z-30">
         <Stepper current={step} onJump={(k) => setStep(k)} />
+        <PriceBar
+          onPrimary={
+            step === "resumen"
+              ? () => window.scrollTo({ top: 0, behavior: "smooth" })
+              : goNext
+          }
+          onSecondary={goPrev}
+          primaryLabel={
+            step === "datos"
+              ? "Ver cotización"
+              : step === "resumen"
+              ? "Volver arriba"
+              : "Siguiente"
+          }
+          secondaryLabel="Atrás"
+          disablePrimary={!canAdvance}
+          hideSecondary={idx === 0}
+        />
       </div>
 
-      {/* Contenido paso a paso */}
-      <main className="flex-1 pb-28 sm:pb-32">
+      {/* Contenido */}
+      <main className="flex-1 pb-24">
         {step === "micheladas" && <StepMicheladas />}
         {step === "sabores" && <StepSabores />}
         {step === "chile" && <StepChile />}
@@ -104,25 +115,6 @@ function CotizadorShell() {
         {step === "datos" && <StepDatos />}
         {step === "resumen" && <StepResumen />}
       </main>
-
-      <PriceBar
-        onPrimary={
-          step === "resumen"
-            ? () => window.scrollTo({ top: 0, behavior: "smooth" })
-            : goNext
-        }
-        onSecondary={goPrev}
-        primaryLabel={
-          step === "datos"
-            ? "Ver cotización"
-            : step === "resumen"
-            ? "Listo"
-            : "Siguiente"
-        }
-        secondaryLabel="Atrás"
-        disablePrimary={!canAdvance}
-        hideSecondary={idx === 0}
-      />
     </div>
   );
 }

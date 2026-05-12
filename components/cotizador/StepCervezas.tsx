@@ -101,9 +101,9 @@ export default function StepCervezas() {
                   )}
                 </div>
                 <div className="p-3 sm:p-4 flex-1 flex flex-col">
-                  <p className="font-display uppercase text-sm sm:text-base text-charcoal leading-tight">
+                  <p className="text-sm sm:text-[15px] font-semibold tracking-tight text-charcoal leading-tight">
                     {c.marca}
-                    {c.variante ? <span className="text-charcoal/60"> · {c.variante}</span> : null}
+                    {c.variante ? <span className="font-normal text-charcoal/60"> · {c.variante}</span> : null}
                   </p>
                   <p className="text-xs text-charcoal/55 mt-1">{c.ml} ml</p>
                   <p className="mt-2 font-semibold text-charcoal tabular-nums">
